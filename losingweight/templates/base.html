@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Losing Weight</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  {% block style %}{% endblock %}
+</head>
+
+<body class="text-center" data-gr-c-s-loaded="true">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">Cover</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#">Contact</a>
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="{% url 'userpage' user.id %}">{{user}}</a>
+          <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+          <form style="display: none;" method="POST" action="{% url 'logout' %}" id="logout">{% csrf_token %}</form>
+          {% else %}
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    {% if error %}
+    <p class="alert alert-danger">{{ error }}</p>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+        <p>&copy; Yusuke Ueda {% now 'Y' %}</p>
+      </div>
+    </footer>
+  </div>
+
+
+</body>
+
+</html>
