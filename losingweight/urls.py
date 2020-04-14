@@ -25,5 +25,6 @@ urlpatterns = [
     path('register/', account.views.registeruser, name='register'),
     path('login/', account.views.loginuser, name='login'),
     path('logout/', account.views.logoutuser, name='logout'),
+    # User
     path('user/<int:user_id>', diet.views.userpage, name='userpage'),
 ]
