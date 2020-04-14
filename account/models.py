@@ -3,30 +3,22 @@ from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, date_of_birth, height, weight, pace_of_losing_weight, password=None):
+    def create_user(self, email, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=self.normalize_email(email),
-            date_of_birth=date_of_birth,
-            height=height,
-            weight=weight,
-            pace_of_losing_weight=pace_of_losing_weight,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, date_of_birth, password):
+    def create_superuser(self, email, password):
         user = self.create_user(
             email,
             password=password,
-            date_of_birth=date_of_birth,
-            height=170,
-            weight=60,
-            pace_of_losing_weight=1,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -39,9 +31,14 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    date_of_birth = models.DateField()
-    height = models.IntegerField()
-    weight = models.IntegerField()
+    SEX_CHOICES = [
+        ('M', 'Man'),
+        ('W', 'Woman'),
+    ]
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    height = models.IntegerField(null=True, blank=True)
+    weight = models.IntegerField(null=True, blank=True)
     # between 1 and 5
     pace_of_losing_weight = models.IntegerField(default=3)
     is_active = models.BooleanField(default=True)
@@ -50,7 +47,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['date_of_birth']
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
