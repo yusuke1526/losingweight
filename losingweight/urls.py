@@ -22,9 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', diet.views.home, name='home'),
     # Auth
-    path('register/', accounts.views.registeruser, name='register'),
-    path('login/', accounts.views.loginuser, name='login'),
-    path('logout/', accounts.views.logoutuser, name='logout'),
+    path('accounts/', include('accounts.urls')),
     # User
     path('user/', diet.views.userpage, name='userpage'),
 ]
