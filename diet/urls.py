@@ -5,5 +5,6 @@ app_name = 'diet'
 
 urlpatterns = [
     # Diet
-    path('add/', views.addmeasured, name='addmeasured'),
+    path('add/measured/', views.addmeasured, name='addmeasured'),
+    path('add/diet', views.adddiet, name='adddiet'),
 ]

@@ -3,11 +3,23 @@
 {% block content %}
 
 <main role="main" class="inner cover mx-auto">
-  <h1 class="cover-heading">Hi, let's work!</h1>
-  <p class="lead">Here is {{user}} page.</p>
-  <p class="lead">
-    <a href="{% url 'diet:addmeasured' %}" class="btn btn-lg btn-primary">Add data</a>
-  </p>
+  {% if calorie__sum is None %}
+  <h1 class="cover-heading">No diets today🤔 <a href="{% url 'diet:adddiet' %}" class="btn btn-lg btn-primary">Add diet</a></h1>
+  {% else %}
+  <h1 class="cover-heading">Today's Diets - {{calorie__sum}}kcal</h1>
+  {% endif%}
+
+  {% if measured is None %}
+  <p class="lead">No measured data today. <a href="{% url 'diet:addmeasured' %}" class="btn btn-lg btn-primary">Add data</a></p>
+  {% else %}
+  <p class="lead">{{measured.weight}}kg, {{measured.body_fat_per}}%</p>
+  {% endif%}
+
+  <ul class="list-group mb-3">
+    {% for diet in diets %}
+    <li class="list-group-item text-secondary">{{diet}} - {{diet.calorie}}kcal</li>
+    {% endfor %}
+  </ul>
 </main>
 
 {% endblock %}
