@@ -13,7 +13,7 @@ def registeruser(request):
                 user = User.objects.create_user(request.POST['email'], password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('userpage', user.id)
+                return redirect('userpage')
             except IntegrityError:
                 return render(request, 'account/register.html', {'error': 'That email has already been used.'})
 
@@ -30,7 +30,7 @@ def loginuser(request):
             return render(request, 'account/login.html', {'error': 'Email or Passwords is wrong.'})
         else:
             login(request, user)
-            return redirect('userpage', user.id)
+            return redirect('userpage')
 
 def logoutuser(request):
     if request.method == 'POST':
