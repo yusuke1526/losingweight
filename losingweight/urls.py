@@ -23,6 +23,8 @@ urlpatterns = [
     path('', diet.views.home, name='home'),
     # Auth
     path('accounts/', include('accounts.urls')),
+    # Diet
+    path('diet/', include('diet.urls')),
     # User
     path('user/', diet.views.userpage, name='userpage'),
 ]

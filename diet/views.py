@@ -8,3 +8,7 @@ def home(request):
 @login_required
 def userpage(request):
     return render(request, 'diet/userpage.html')
+
+@login_required
+def addmeasured(request):
+    return render(request, 'diet/addmeasured.html')
