@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main role="main" class="inner cover">
+    <h3 class="mb-3 font-weight-normal text-center">Create</h3>
+    <form class="form-signin" method="POST" action="{% url 'diet:add' %}">
+      {% csrf_token %}
+      <div class="mx-auto col-md-6 mt-3 mb-3">
+        <input class="form-control" type="text" name="name" placeholder="Food Name" required>
+        <input class="form-control" type="number" name="calorie" placeholder="Calorie" min="0" required>
+        <input class="form-control mb-3" type="date" name="date" value="{% now 'Y-m-d' %}">
+        <button class="btn btn-lg btn-primary btn-block btn-submit" type="submit">Add Diet</button>
+      </div>
+    </form>
+</main>
+
+{% endblock %}

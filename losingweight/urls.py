@@ -25,6 +25,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     # Diet
     path('diet/', include('diet.urls')),
+    # Measured
+    path('measured/', include('measured.urls')),
     # User
     path('user/', diet.views.userpage, name='userpage'),
 ]
