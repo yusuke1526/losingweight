@@ -2,24 +2,34 @@
 
 {% block content %}
 
-<main role="main" class="inner cover mx-auto">
+<main role="main" class="inner cover mx-auto text-center">
   {% if calorie__sum is None %}
-  <h1 class="cover-heading">No diets today🤔 <a href="{% url 'diet:add' %}" class="btn btn-lg btn-primary">Add diet</a></h1>
+  <h1 class="cover-heading">No diets today🤔</h1>
   {% else %}
   <h1 class="cover-heading">Today's Diets - {{calorie__sum}}kcal</h1>
   {% endif%}
 
+  <!-- measured -->
   {% if measured is None %}
-  <p class="lead">No measured data today. <a href="{% url 'measured:add' %}" class="btn btn-lg btn-primary">Add data</a></p>
+  <p class="lead">No measured data today. <a href="{% url 'measured:add' %}" class="btn btn-sm btn-primary float-right">Add measured data</a></p>
   {% else %}
   <p class="lead">{{measured.weight}}kg, {{measured.body_fat_per}}%</p>
   {% endif%}
-
-  <ul class="list-group mb-3">
+  
+  <!-- diet -->
+  {% if diets is None %}
+  <p class="lead">No measured data today. <a href="{% url 'measured:add' %}" class="btn btn-sm btn-primary float-right">Add measured data</a></p>
+  {% else %}
+  <div class="list-group mb-3">
     {% for diet in diets %}
-    <li class="list-group-item text-secondary">{{diet}} - {{diet.calorie}}kcal</li>
+    <a class="list-group-item list-group-item-action text-secondary">{{diet}} - {{diet.calorie}}kcal</a>
     {% endfor %}
-  </ul>
+  </div>
+  <a href="{% url 'diet:add' %}" class="btn btn-sm btn-primary">Add diet</a>
+  {% endif %}
+
 </main>
+
+
 
 {% endblock %}
